@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <link rel="icon" type="image/x-icon" href="talos.ico">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Talos IDPS — Project Homepage</title>
-  <meta name="description" content="Talos IDPS — Intrusion Detection & Prevention System for PhD project." />
+  <title>Talos IDPS — Ashley Wood</title>
+  <meta name="description" content="Talos IDPS — Intrusion Detection & Prevention System" />
   <style>
     :root{
       --bg:#0b0b0b;
       --panel:#0f0f0f;
-      --accent:#e31b23; /* red */
+      --accent:#e31b23;
       --muted:#bdbdbd;
       --radius:12px;
       font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
@@ -19,54 +19,123 @@
     html,body{height:100%;}
     body{
       margin:0;
-      background:linear-gradient(180deg,#050505 0%, #0b0b0b 60%);
+      background:#000; /* fallback if video fails */
       color:var(--muted);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      display:flex;align-items:center;justify-content:center;padding:40px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
     }
+    /* ===============================
+       FULLSCREEN BACKGROUND VIDEO
+       =============================== */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.55;
+    }
+    /* ===============================
+       SMOKED GLASS EFFECT PANELS
+       =============================== */
     .container{
-      width:100%;max-width:980px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--radius);padding:28px;box-shadow:0 8px 30px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.03);
+      width:100%;
+      max-width:980px;
+      padding:28px;
+      background: rgba(20,20,20,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 8px 30px rgba(0,0,0,0.65);
+    }
+    .card{
+      padding:18px;
+      background: rgba(15,15,15,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.06);
     }
     header{display:flex;align-items:center;gap:18px}
     .logo{
-      width:68px;height:68px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#8a0000);display:flex;align-items:center;justify-content:center;
+      width:68px;height:68px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),#8a0000);
+      display:flex;align-items:center;justify-content:center;
       box-shadow:0 6px 18px rgba(227,27,35,0.12), inset 0 -6px 18px rgba(0,0,0,0.25);
       padding:10px;
     }
     .logo img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        filter: invert(100%);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: invert(100%);
     }
     h1{margin:0;color:#fff;font-size:22px}
     .tag{color:var(--muted);font-size:13px}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:22px;margin-top:20px}
-    .card{background:var(--panel);padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:22px;
+      margin-top:20px;
+    }
     .lead{color:#ddd;font-size:15px;line-height:1.45}
     .features{display:flex;flex-direction:column;gap:10px;margin-top:14px}
     .feat{display:flex;gap:12px;align-items:flex-start}
     .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:6px;flex:0 0 10px}
     .download-panel{display:flex;flex-direction:column;gap:12px;align-items:stretch}
-    .download-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 18px;border-radius:10px;border:0;background:transparent;color:#fff;font-weight:600;text-decoration:none;font-size:15px;cursor:pointer}
-    .download-btn .chip{background:rgba(0,0,0,0.25);padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
-    .download-cta{background:linear-gradient(90deg,var(--accent),#b51c23);box-shadow:0 8px 28px rgba(227,27,35,0.18);border:1px solid rgba(255,255,255,0.03)}
+    .download-btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:10px;padding:14px 18px;border-radius:10px;border:0;
+      background:transparent;color:#fff;font-weight:600;
+      text-decoration:none;font-size:15px;cursor:pointer;
+      transition:all .18s ease;
+    }
+    .download-btn:hover{transform:translateY(-3px)}
+    .download-btn:focus{outline:3px solid rgba(227,27,35,0.18);outline-offset:3px}
+    .download-cta{
+      background:linear-gradient(90deg,var(--accent),#b51c23);
+      box-shadow:0 8px 28px rgba(227,27,35,0.18);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .chip{
+      background:rgba(0,0,0,0.25);
+      padding:6px 10px;border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
     .meta{font-size:13px;color:var(--muted)}
-    footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+    footer{
+      margin-top:18px;
+      display:flex;justify-content:space-between;align-items:center;
+      color:var(--muted);font-size:13px;
+    }
     @media(max-width:820px){
       .grid{grid-template-columns:1fr;}
       header{gap:12px}
     }
-    .accent-underline{display:inline-block;height:6px;width:60px;background:linear-gradient(90deg,var(--accent),#b51c23);border-radius:6px;margin-top:8px}
-    .download-btn:hover{transform:translateY(-3px)}
-    .download-btn{transition:all .18s ease}
-    .download-btn:focus{outline:3px solid rgba(227,27,35,0.18);outline-offset:3px}
-    .note{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;color:var(--muted);font-size:13px}
+    .accent-underline{
+      display:inline-block;height:6px;width:60px;
+      background:linear-gradient(90deg,var(--accent),#b51c23);
+      border-radius:6px;margin-top:8px
+    }
+    .note{
+      background:rgba(255,255,255,0.03);
+      padding:10px;border-radius:8px;
+      color:var(--muted);font-size:13px;
+    }
   </style>
 </head>
 <body>
+  <video autoplay muted loop id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+  </video>
   <div class="container" role="main">
     <header>
       <div class="logo" aria-hidden="true">
@@ -79,14 +148,36 @@
     </header>
     <div class="grid">
       <section class="card">
-        <p class="lead">Talos IDPS is a behavioural-profiling based intrusion detection and prevention system. It is a modular system, allowing timely detection of threats and good levels of accuracy.</p>
+        <p class="lead">
+          Talos IDPS is a behavioural-profiling based intrusion detection and prevention system, developed for the PhD Project titled <i>"Advancing Intrusion Detection and Prevention Systems using Behavioural-profiling and Artificial Intelligence."</i>
+          It is a modular system, allowing timely detection of threats and good levels of accuracy.
+        </p>
         <div class="features">
-          <div class="feat"><div class="dot" aria-hidden></div><div><strong>Modular system</strong><div class="meta">Module components allow Talos IDPS to be configured to operate in a wide variety of environments and settings,</div></div></div>
-          <div class="feat"><div class="dot" aria-hidden></div><div><strong>Behavioural-profiling</strong><div class="meta">Applies novel behavioural profiling techniques for detecting and responding to threats, avoiding the pitfalls of signature-based and rule based systems.</div></div></div>
-          <div class="feat"><div class="dot" aria-hidden></div><div><strong>Self-learning capability</strong><div class="meta">Talos IDPS has the capability and capacity to learn over time, allowing it to learn attack patterns and to predict attacks accordingly.</div></div></div>
+          <div class="feat">
+            <div class="dot" aria-hidden></div>
+            <div><strong>Modular system</strong>
+              <div class="meta">Module components allow Talos IDPS to be configured to operate in a wide variety of environments and settings.</div>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="dot" aria-hidden></div>
+            <div><strong>Behavioural-profiling</strong>
+              <div class="meta">Uses novel profiling techniques to detect and respond to threats, avoiding pitfalls of signature and rule-based systems.</div>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="dot" aria-hidden></div>
+            <div><strong>Self-learning capability</strong>
+              <div class="meta">Learns attack patterns over time and predicts malicious behaviour.</div>
+            </div>
+          </div>
         </div>
-        <hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,0.03)">
-        <div class="note">Note: Talos IDPS is a prototype system developed as part of a PhD research project and as such is experimental. By downloading and running the system you accept this and understand that the author is not responsible for any damage or loss of data that may occur.</div>
+        <hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,0.06)">
+        <div class="note">
+          Note: Talos IDPS is a prototype system developed as part of a PhD research project and as such is experimental.
+          By downloading and running the system you accept this and understand that the author is not responsible for
+          any damage or loss of data that may occur.
+        </div>
       </section>
       <aside class="card">
         <div class="download-panel">
@@ -95,39 +186,36 @@
             <div style="font-weight:700;color:#fff;font-size:18px;margin-top:6px">Talos IDPS v1.0 (research project build)</div>
             <div class="accent-underline" aria-hidden></div>
           </div>
-          <a id="download-link" class="download-btn download-cta" href="https://1drv.ms/f/c/863acb29c3fa8e84/IgBbju_EFiTBS5CrabQDSj3vAXPK3L5SYS1dXQetjdfnfNQ?e=KNrTqe" role="button" download>
+          <a id="download-link" class="download-btn download-cta"
+             href="https://1drv.ms/f/c/863acb29c3fa8e84/IgBbju_EFiTBS5CrabQDSj3vAXPK3L5SYS1dXQetjdfnfNQ?e=KNrTqe"
+             role="button" download>
             <span>Download Talos IDPS</span>
           </a>
-          <div style="margin-top:6px;font-size:13px;color:var(--muted)">Note: Talos IDPS requires a number of packages to execute, please refer to the "requirements.txt" file within the directory for details.</div>
+          <div style="margin-top:6px;font-size:13px;color:var(--muted)">
+            Note: Talos IDPS requires a number of packages to execute. Refer to the "requirements.txt" file within the directory.
+          </div>
         </div>
       </aside>
     </div>
     <footer>
       <div>© 2019-2026 The Talos IDPS Project - Ashley Wood</div>
-      <div class="tag">
-  <a href="https://ashleywood.co.uk" style="text-decoration: none; color: inherit;">www.ashleywood.co.uk</a>
-</div>
+      <div class="tag"><a href="https://ashleywood.co.uk" style="text-decoration:none;color:inherit;">www.ashleywood.co.uk</a></div>
     </footer>
   </div>
-  <!-- Keep boot.wav autoplay -->
+  <!-- Audio elements -->
   <audio id="myAudio" src="boot.wav" preload="auto"></audio>
-  <!-- Add confirm.wav for download button -->
   <audio id="confirmAudio" src="confirm.wav" preload="auto"></audio>
   <script>
-    // Play boot.wav on page load
     window.addEventListener('load', () => {
       const audio = document.getElementById('myAudio');
       audio.play().catch(error => console.log('Boot audio failed:', error));
     });
-    // Play confirm.wav when download button clicked
     const downloadBtn = document.getElementById('download-link');
     const confirmAudio = document.getElementById('confirmAudio');
     downloadBtn.addEventListener('click', (e) => {
-      e.preventDefault(); // prevent immediate download
+      e.preventDefault();
       confirmAudio.currentTime = 0;
       confirmAudio.play().catch(err => console.log('Confirm audio failed:', err));
-      
-      // Trigger download immediately (can also wait for audio end if desired)
       const link = document.createElement('a');
       link.href = downloadBtn.href;
       link.download = downloadBtn.getAttribute('download') || '';
