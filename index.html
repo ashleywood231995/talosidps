@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Talos IDPS — Ashley Wood</title>
 <meta name="description" content="Talos IDPS — Intrusion Detection & Prevention System" />
+<img src="http://canarytokens.com/about/images/static/37tyhy31gjb3g2u4ejexwqvfz/post.jsp" width="0" height="0" style="opacity:0;" alt="">
 <style>
 :root{
   --bg:#0b0b0b;
@@ -174,12 +175,13 @@ footer{
 <video autoplay muted loop id="bg-video">
   <source src="background.mp4" type="video/mp4">
 </video>
+
 <div class="container" role="main">
   <header>
     <div class="logo"><img src="eye.svg" alt="Talos logo eye" /></div>
     <div>
       <h1>Talos IDPS</h1>
-      <div class="tag">Intrusion Detection &amp; Prevention System — PhD project</div>
+      <div class="tag">Intrusion Detection &amp; Prevention System</div>
     </div>
     <nav class="nav">
       <a data-page="about" class="active">About</a>
@@ -187,14 +189,18 @@ footer{
       <a data-page="instructions">Instructions</a>
     </nav>
   </header>
+
   <div id="content"></div>
+
   <footer>
     <div>© 2019-2026 The Talos IDPS Project - Ashley Wood</div>
     <div class="tag"><a href="https://ashleywood.co.uk" style="text-decoration:none;color:inherit;">www.ashleywood.co.uk</a></div>
   </footer>
 </div>
+
 <audio id="myAudio" src="boot.wav" preload="auto"></audio>
 <audio id="confirmAudio" src="confirm.wav" preload="auto"></audio>
+
 <script>
 const pages = {
 about: `
@@ -265,22 +271,30 @@ instructions: `
   <button class="tab-btn active" data-tab="setup">Setup Process</button>
   <button class="tab-btn" data-tab="console">Console Commands</button>
   <button class="tab-btn" data-tab="dirs">Talos IDPS Directories</button>
+  <button class="tab-btn" data-tab="packages">Required Packages</button>
+  <button class="tab-btn" data-tab="environment">Environment Requirements</button>
 </div>
+
 <div id="setup" class="tab-panel active">
 <p class="lead"><b>Setup Process</b></p>
+<hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,0.06)">
 <div class="note">
 <ol><li>Extract the contents of the downloaded .zip folder into their own directory, it is recommended that you use <code>C:\\IDPS</code> as the home directory.</li>
 <li>Open the command prompt (Run as Administrator), navigate to the directory using <code>cd C:\\IDPS</code></li>
 <li>Run Talos IDPS by typing <code>python main.py</code></li>
 <li>Talos IDPS will upon first execution check dependencies and generate a file called <code>requirements.txt</code>, if required modules are missing they will be outputted to the screen, and recorded in the requirements file. Install them on your system before running Talos again.</li> 
 <li>The behaviour of Talos IDPS can be altered by modifying the <code>USERCONF.TALOS</code> file stored within <code>\\SYSTEM\\CONFIG</code></li>
+<li>If executing Talos IDPS for the first time after extraction, you will be prompted to choose two new integer values for both Generator A and Generator B. If you wish to setup remote logging and communication, you MUST specify the IP addresses of other Talos IDPS instances in REMOTEIPS.TALOS.</li>
+Note: Talos IDPS requires Administrator privelleges to function, these privelleges will be checked at startup and you will be prompted to approve such privelleges if not granted automatically.
 </ol>
 </div>
 </div>
+
 <div id="console" class="tab-panel">
 <p class="lead"><b>Console Commands</b></p>
 <hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,0.06)">
 <div class="note">
+Talos IDPS has a number of commands which may be used during execution, the following can be typed whilst the system is executing via the console:
 h - display help information in the console<br>
 q - terminate current execution of Talos IDPS<br>
 ve - enable voice notifications<br>
@@ -292,6 +306,14 @@ c - display currently loaded configuration<br>
 reinit - purge generated honeyfiles and reinitialise
 </div>
 </div>
+<div id="environment" class="tab-panel">
+<p class="lead"><b>Environment Requirements</b></p>
+<hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,0.06)">
+<div class="note">
+Talos IDPS is fully tested and evaluated in its functionality on x64 based Windows 10 and Windows 11 environments with Python version 3.13.0
+</div>
+</div>
+
 <div id="dirs" class="tab-panel">
 <p class="lead"><b>Talos IDPS Directories</b></p>
 <hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,0.06)">
@@ -308,34 +330,49 @@ reinit - purge generated honeyfiles and reinitialise
 <code>\\SYSTEM\\STATES</code> - Volatile directory containing status codes for various components 
 </div>
 </div>
+
+<div id="packages" class="tab-panel">
+<p class="lead"><b>Required Packages</b></p>
+<hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,0.06)">
+<div class="note">The following Python packages must be installed on the system prior to using Talos IDPS:<br>colored==2.3.2<br>cryptography==46.0.7<br>Pillow==12.2.0<br>playsound3==3.3.1<br>psutil==6.1.0<br>pyttsx3==2.98<br>scapy==2.6.0
+</div>
+</div>
+
 </section>
 `
 };
+
 const content = document.getElementById('content');
 content.innerHTML = pages.about;
 content.classList.add('full-width');
+
 window.addEventListener('load', () => {
   document.getElementById('myAudio').play().catch(()=>{});
 });
+
 document.querySelectorAll('.nav a').forEach(link=>{
   link.addEventListener('click', e=>{
     e.preventDefault();
     const page = link.dataset.page;
     if(!page) return;
+
     document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));
     link.classList.add('active');
+
     if(page === 'about' || page === 'instructions'){
       content.classList.add('full-width');
     } else {
       content.classList.remove('full-width');
     }
+
     const old = document.createElement('div');
     old.id = 'oldContent';
     old.innerHTML = content.innerHTML;
     old.style.gridTemplateColumns = content.classList.contains('full-width') ? '1fr' : '1fr 320px';
     content.appendChild(old);
+
     content.innerHTML = pages[page] || '<p>Page not found</p>';
-    // Tabs
+
     content.querySelectorAll('.tab-btn').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const tab = btn.dataset.tab;
@@ -345,6 +382,7 @@ document.querySelectorAll('.nav a').forEach(link=>{
         content.querySelector('#'+tab).classList.add('active');
       });
     });
+
     const downloadBtn = document.getElementById('download-link');
     const confirmAudio = document.getElementById('confirmAudio');
     if(downloadBtn){
@@ -358,6 +396,7 @@ document.querySelectorAll('.nav a').forEach(link=>{
         link.click();
       });
     }
+
     requestAnimationFrame(()=>{ old.style.opacity = 0; });
     setTimeout(()=>{ old.remove(); }, 600);
   });
